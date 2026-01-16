@@ -1,0 +1,40 @@
+import socket
+from datetime import datetime
+
+# Get and clean user input
+target = input("Enter an IP or website: ").strip().lower()
+
+ports = [21, 22, 23, 80, 443]
+
+# Create a timestamp for the log file
+timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_filename = f"scan_{target.replace('.', '_')}_{timestamp}.txt"
+
+print(f"\nScanning {target}...\n")
+
+results = []
+results.append(f"Target: {target}")
+results.append(f"Scan Time: {datetime.now()}")
+results.append("")
+
+for port in ports:
+    s = socket.socket()
+    s.settimeout(1)
+    result = s.connect_ex((target, port))
+
+    if result == 0:
+        line = f"Port {port} OPEN"
+    else:
+        line = f"Port {port} CLOSED"
+
+    print(line)
+    results.append(line)
+
+    s.close()
+
+# Write results to file
+with open(log_filename, "w") as file:
+    file.write("\n".join(results))
+
+print(f"\nResults saved to: {log_filename}")
+

@@ -1,0 +1,8 @@
+Target: google.com
+Scan Time: 2026-01-16 14:04:07.523948
+
+Port 21 CLOSED
+Port 22 CLOSED
+Port 23 CLOSED
+Port 80 OPEN
+Port 443 OPEN
